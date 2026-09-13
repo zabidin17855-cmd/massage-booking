@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Reservasi Pijat</title>
+  <title>Reservasi Pijat Full Body</title>
   <style>
     :root{--accent:#2b8a78;--bg:#f7f7f8;--card:#ffffff}
     body{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:var(--bg);margin:0;color:#222}
@@ -14,23 +14,31 @@
     p.lead{margin:6px 0 22px;color:#444}
     .card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 6px 18px rgba(30,30,30,0.06)}
     form .row{display:flex;gap:12px;flex-wrap:wrap}
-    label{display:block;font-size:13px;margin-bottom:6px;color:#333}
-    input[type="text"],input[type="tel"],input[type="date"],input[type="time"],select,textarea{
+    label{display:block;font-size:13px;margin-bottom:6px;color:#333;font-weight:600}
+    input[type="text"],input[type="tel"],input[type="date"],input[type="time"],input[type="email"],input[type="number"],select,textarea{
       width:100%;padding:10px;border:1px solid #e1e1e6;border-radius:8px;font-size:14px;background:#fff;box-sizing:border-box
     }
     .col-2{flex:1 1 48%}
     .col-3{flex:1 1 30%}
     .full{flex-basis:100%}
     .actions{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
-    button{background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;border:0;font-weight:600;cursor:pointer}
+    button{background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;border:0;font-weight:600;cursor:pointer;transition:all 0.3s}
+    button:hover{background:#1f6f63}
     button[disabled]{opacity:0.6;cursor:default}
     .secondary{background:#eee;color:#333}
+    .secondary:hover{background:#ddd}
     .note{font-size:13px;color:#666;margin-top:8px}
     .success{padding:14px;border-radius:10px;background:#e9f7f2;border:1px solid #c7efe0;color:#0b6b4b;margin-top:12px}
+    .error{padding:14px;border-radius:10px;background:#fef3f2;border:1px solid #fecac3;color:#b42318;margin-top:12px}
     .contact-info{background:#f0f9f7;padding:12px;border-radius:8px;margin-top:12px;font-size:13px}
     .contact-info strong{color:var(--accent)}
-    .contact-info a{color:var(--accent);text-decoration:none}
+    .contact-info a{color:var(--accent);text-decoration:none;font-weight:600}
     .contact-info a:hover{text-decoration:underline}
+    .services-list{background:#f5f5f5;padding:12px;border-radius:8px;margin-top:12px;font-size:13px;line-height:1.6}
+    .services-list strong{color:var(--accent)}
+    .services-list ul{margin:8px 0 0 20px;padding:0}
+    .services-list li{margin:4px 0}
+    .price-note{background:#fff3cd;padding:10px;border-radius:8px;border:1px solid #ffc107;color:#856404;font-size:13px;margin-top:10px;font-weight:600}
     footer{margin-top:18px;text-align:center;color:#666;font-size:13px}
     @media(max-width:520px){.col-2,.col-3{flex-basis:100%}}
   </style>
@@ -38,93 +46,159 @@
 <body>
   <div class="wrap">
     <header>
-      <div class="logo">PJ</div>
+      <div class="logo">💆</div>
       <div>
-        <h1>Reservasi Pijat</h1>
-        <p class="lead">Pilih layanan, tanggal & waktu — dapatkan konfirmasi lewat WhatsApp atau email.</p>
+        <h1>Reservasi Pijat Full Body</h1>
+        <p class="lead">Layanan pijat profesional untuk relaksasi dan terapi tubuh Anda. Pesan sekarang melalui formulir di bawah.</p>
       </div>
     </header>
 
-    <div class="card" role="region" aria-label="Formulir reservasi pijat">
+    <div class="card" role="region" aria-label="Formulir reservasi pijat full body">
       <form id="bookingForm">
         <input type="hidden" id="formAction" value="https://formspree.io/f/xyzgzwko" />
-        <input type="hidden" name="_cc" value="zabidin17855@gmail.com" />
 
         <div class="row">
           <div class="col-2">
-            <label for="name">Nama</label>
-            <input id="name" name="name" type="text" required placeholder="Nama lengkap" />
+            <label for="name">Nama Lengkap *</label>
+            <input id="name" name="name" type="text" required placeholder="Nama Anda" />
           </div>
 
           <div class="col-2">
-            <label for="phone">Nomor WA / Telepon</label>
-            <input id="phone" name="phone" type="tel" required placeholder="+62 812 3456 7890" />
+            <label for="phone">Nomor WhatsApp *</label>
+            <input id="phone" name="phone" type="tel" required placeholder="085640863937 atau +62" />
           </div>
 
           <div class="col-2">
-            <label for="service">Layanan</label>
+            <label for="email">Email (Opsional)</label>
+            <input id="email" name="email" type="email" placeholder="email@anda.com" />
+          </div>
+
+          <div class="full">
+            <label for="service">Pilih Layanan Pijat Full Body *</label>
             <select id="service" name="service" required>
               <option value="">— Pilih layanan —</option>
-              <option value="Pijat Relaksasi (60 menit)">Pijat Relaksasi (60 menit)</option>
-              <option value="Pijat Terapeutik (90 menit)">Pijat Terapeutik (90 menit)</option>
-              <option value="Pijat Kepala & Bahu (30 menit)">Pijat Kepala & Bahu (30 menit)</option>
-              <option value="Pijat Pasca-OlahRaga (60 menit)">Pijat Pasca-OlahRaga (60 menit)</option>
+              <option value="Pijat Full Body Relaksasi (60 menit)">Pijat Full Body Relaksasi (60 menit)</option>
+              <option value="Pijat Full Body Relaksasi (90 menit)">Pijat Full Body Relaksasi (90 menit)</option>
+              <option value="Pijat Full Body Terapeutik (60 menit)">Pijat Full Body Terapeutik (60 menit)</option>
+              <option value="Pijat Full Body Terapeutik (90 menit)">Pijat Full Body Terapeutik (90 menit)</option>
+              <option value="Pijat Full Body Premium (120 menit)">Pijat Full Body Premium (120 menit)</option>
+              <option value="Pijat Ayurveda Full Body (90 menit)">Pijat Ayurveda Full Body (90 menit)</option>
             </select>
           </div>
 
           <div class="col-3">
-            <label for="date">Tanggal</label>
+            <label for="date">Tanggal Kunjungan *</label>
             <input id="date" name="date" type="date" required />
           </div>
 
           <div class="col-3">
-            <label for="time">Waktu</label>
+            <label for="time">Waktu Mulai *</label>
             <input id="time" name="time" type="time" required />
           </div>
 
           <div class="col-3">
             <label for="duration">Durasi (menit)</label>
-            <input id="duration" name="duration" type="text" placeholder="60" />
+            <input id="duration" name="duration" type="text" placeholder="60, 90, 120" readonly />
+          </div>
+
+          <div class="col-2">
+            <label for="location">Lokasi Layanan *</label>
+            <select id="location" name="location" required>
+              <option value="">— Pilih lokasi —</option>
+              <option value="Rumah/Apartemen (Delivery)">Rumah/Apartemen (Delivery)</option>
+              <option value="Hotel/Resort">Hotel/Resort</option>
+              <option value="Kantor">Kantor</option>
+              <option value="Salon Kami">Salon Kami</option>
+            </select>
+          </div>
+
+          <div class="col-2">
+            <label for="therapist">Preferensi Terapis (Opsional)</label>
+            <select id="therapist" name="therapist">
+              <option value="">— Tidak ada preferensi —</option>
+              <option value="Perempuan">Perempuan</option>
+              <option value="Laki-laki">Laki-laki</option>
+            </select>
+          </div>
+
+          <div class="col-2">
+            <label for="price">Biaya (Seikhlas Hati) *</label>
+            <input id="price" name="price" type="number" required placeholder="Rp 0" min="0" />
+            <small style="color:#666">Terserah kemampuan Anda</small>
           </div>
 
           <div class="full">
-            <label for="notes">Catatan (alamat, preferensi, alergi)</label>
-            <textarea id="notes" name="notes" rows="4" placeholder="Contoh: Rumah / Hotel, lantai 2, preferensi minyak terapi"></textarea>
+            <label for="address">Alamat/Lokasi Lengkap *</label>
+            <textarea id="address" name="address" rows="2" required placeholder="Contoh: Jl. Ahmad Yani No. 45, Medan, Lantai 2, Blok A"></textarea>
+          </div>
+
+          <div class="full">
+            <label for="notes">Catatan Khusus (Alergi, Preferensi Minyak, dll)</label>
+            <textarea id="notes" name="notes" rows="3" placeholder="Contoh: Alergi pada minyak tertentu, area yang perlu fokus (pundak, pinggul), tekanan preferensi (ringan/sedang/kuat)"></textarea>
           </div>
         </div>
 
         <div class="actions">
-          <button id="submitBtn" type="submit">Kirim Reservasi</button>
-          <button id="resetBtn" type="button" class="secondary">Reset</button>
-          <div class="note">Setelah mengirim, Anda akan melihat link konfirmasi dan ID reservasi.</div>
+          <button id="submitBtn" type="submit">✓ Kirim Reservasi</button>
+          <button id="resetBtn" type="button" class="secondary">↻ Reset Form</button>
         </div>
 
         <div id="resultArea" aria-live="polite"></div>
       </form>
 
+      <div class="services-list">
+        <strong>📋 Layanan Full Body Kami:</strong>
+        <ul>
+          <li><strong>Pijat Relaksasi:</strong> Untuk stress relief dan relaksasi tubuh umum</li>
+          <li><strong>Pijat Terapeutik:</strong> Untuk mengatasi keluhan otot dan persendian</li>
+          <li><strong>Pijat Ayurveda:</strong> Terapi tradisional India dengan minyak khusus</li>
+          <li><strong>Pijat Premium:</strong> Paket lengkap dengan aromaterapi dan treatment ekstra</li>
+        </ul>
+      </div>
+
+      <div class="price-note">
+        💝 <strong>Sistem Biaya Seikhlas Hati:</strong> Kami percaya pada keadilan harga. Bayar sesuai dengan kemampuan dan nilai yang Anda rasakan dari layanan kami. Terima kasih atas dukungan Anda!
+      </div>
+
       <div class="contact-info">
-        <strong>📱 Hubungi Kami:</strong><br/>
-        WhatsApp: <a href="https://wa.me/085640863937" target="_blank" rel="noopener">085640863937</a><br/>
-        Email: <a href="mailto:zabidin17855@gmail.com">zabidin17855@gmail.com</a>
+        <strong>📱 Hubungi Kami Langsung:</strong><br/>
+        📞 WhatsApp: <a href="https://wa.me/085640863937" target="_blank" rel="noopener">085640863937</a><br/>
+        📧 Email: <a href="mailto:zabidin17855@gmail.com">zabidin17855@gmail.com</a><br/>
+        ⏰ Jam Operasional: 09:00 - 21:00 (Setiap Hari)
       </div>
     </div>
 
     <footer>
-      <small>Formulir Reservasi Pijat © 2026 | Data akan dikirim ke email dan WhatsApp Anda</small>
+      <small>Pijat Full Body Professional © 2026 | Terapis Bersertifikat | Harga Seikhlas Hati</small>
     </footer>
   </div>
 
   <script>
-    // Simple client-side behavior:
     (function(){
       const form = document.getElementById('bookingForm');
       const submitBtn = document.getElementById('submitBtn');
       const resetBtn = document.getElementById('resetBtn');
       const resultArea = document.getElementById('resultArea');
       const formActionInput = document.getElementById('formAction');
+      const serviceSelect = document.getElementById('service');
+      const durationInput = document.getElementById('duration');
+
+      // Fungsi ekstrak durasi dari nama layanan
+      function updateDuration(){
+        const service = serviceSelect.value;
+        if(service){
+          const match = service.match(/(\d+)\s*menit/);
+          if(match){
+            durationInput.value = match[1];
+          }
+        } else {
+          durationInput.value = '';
+        }
+      }
+
+      serviceSelect.addEventListener('change', updateDuration);
 
       function generateReservationId(){
-        // e.g. PJ-20260913-1382
         const d = new Date();
         const y = d.getFullYear().toString();
         const m = String(d.getMonth()+1).padStart(2,'0');
@@ -133,41 +207,45 @@
         return 'PJ-' + y + m + day + '-' + rnd;
       }
 
-      resetBtn.addEventListener('click', ()=> form.reset());
+      resetBtn.addEventListener('click', ()=> {
+        form.reset();
+        durationInput.value = '';
+        resultArea.innerHTML = '';
+      });
 
       form.addEventListener('submit', async (ev) => {
         ev.preventDefault();
         resultArea.innerHTML = '';
         const action = formActionInput.value.trim();
-        if(!action || action === 'FORM_ACTION_REPLACE_ME'){
-          resultArea.innerHTML = '<div class="note" style="color:#b43">Ganti nilai FORM_ACTION di file ini dengan endpoint Formspree atau Google Apps Script.</div>';
-          return;
-        }
 
         // Collect values
         const data = {
           reservationId: generateReservationId(),
           name: form.name.value.trim(),
           phone: form.phone.value.trim(),
+          email: form.email.value.trim(),
           service: form.service.value,
           date: form.date.value,
           time: form.time.value,
           duration: form.duration.value,
+          location: form.location.value,
+          address: form.address.value.trim(),
+          therapist: form.therapist.value,
+          price: form.price.value,
           notes: form.notes.value.trim(),
           createdAt: new Date().toISOString()
         };
 
-        // Basic validation
-        if(!data.name || !data.phone || !data.service || !data.date || !data.time){
-          resultArea.innerHTML = '<div class="note" style="color:#b43">Isi semua field yang wajib.</div>';
+        // Validasi
+        if(!data.name || !data.phone || !data.service || !data.date || !data.time || !data.location || !data.address || !data.price){
+          resultArea.innerHTML = '<div class="error">❌ Mohon isi semua field yang ditandai dengan *</div>';
           return;
         }
 
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Mengirim...';
+        submitBtn.textContent = '⏳ Mengirim...';
 
         try{
-          // POST as FormData for Formspree
           const formData = new FormData();
           Object.keys(data).forEach(k => formData.append(k, data[k]));
           
@@ -180,37 +258,49 @@
             throw new Error('Gagal mengirim: ' + resp.status);
           }
 
-          // Show confirmation and a shareable link (can be used to open WhatsApp chat)
           const confirmationHTML = `
             <div class="success">
-              ✅ Reservasi terkirim! <br/>
-              <strong>ID Reservasi: ${data.reservationId}</strong><br/>
+              ✅ <strong>Reservasi Terkirim!</strong><br/>
+              <br/>
+              <strong>ID Reservasi:</strong> ${escapeHtml(data.reservationId)}<br/>
               <strong>Nama:</strong> ${escapeHtml(data.name)}<br/>
-              <strong>Tanggal & Waktu:</strong> ${data.date} ${data.time}<br/>
+              <strong>Nomor WA:</strong> ${escapeHtml(data.phone)}<br/>
+              <strong>Tanggal & Waktu:</strong> ${data.date} Pukul ${data.time}<br/>
               <strong>Layanan:</strong> ${escapeHtml(data.service)}<br/>
+              <strong>Lokasi:</strong> ${escapeHtml(data.location)}<br/>
+              <strong>Biaya Seikhlas:</strong> Rp ${formatNumber(data.price)}<br/>
+              <br/>
               <div style="margin-top:12px">
-                <a href="${createWhatsAppLink(data)}" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600">📱 Konfirmasi via WhatsApp</a>
+                <a href="${createWhatsAppLink(data)}" target="_blank" rel="noopener" style="color:#fff;background:var(--accent);padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:600;display:inline-block">📱 Konfirmasi via WhatsApp</a>
               </div>
-              <div style="margin-top:8px;font-size:12px">
-                Tim kami akan menghubungi Anda dalam waktu 1x24 jam
+              <div style="margin-top:12px;font-size:12px;color:#0b6b4b">
+                ✓ Tim kami akan menghubungi Anda dalam waktu 1x24 jam<br/>
+                ✓ Pembayaran dilakukan saat terapis tiba (tunai/transfer)
               </div>
             </div>
           `;
           resultArea.innerHTML = confirmationHTML;
           form.reset();
+          durationInput.value = '';
         }catch(err){
           console.error(err);
-          resultArea.innerHTML = '<div class="note" style="color:#b43">❌ Terjadi kesalahan saat mengirim. Silakan coba lagi atau hubungi kami via WhatsApp.</div>';
+          resultArea.innerHTML = '<div class="error">❌ Terjadi kesalahan saat mengirim. Silakan hubungi kami via WhatsApp: <a href="https://wa.me/085640863937" target="_blank" rel="noopener" style="color:#b42318;font-weight:600">085640863937</a></div>';
         }finally{
           submitBtn.disabled = false;
-          submitBtn.textContent = 'Kirim Reservasi';
+          submitBtn.textContent = '✓ Kirim Reservasi';
         }
       });
 
-      // small helpers
-      function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+      function escapeHtml(s){ 
+        return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); 
+      }
+
+      function formatNumber(num) {
+        return String(num).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      }
+      
       function createWhatsAppLink(d){
-        const text = `Konfirmasi Reservasi%0A%0AID: ${encodeURIComponent(d.reservationId)}%0ANama: ${encodeURIComponent(d.name)}%0ANo WA: ${encodeURIComponent(d.phone)}%0ATanggal: ${encodeURIComponent(d.date)}%0AWaktu: ${encodeURIComponent(d.time)}%0ALayanan: ${encodeURIComponent(d.service)}${d.notes ? '%0ACatatan: ' + encodeURIComponent(d.notes) : ''}`;
+        const text = `*KONFIRMASI RESERVASI PIJAT FULL BODY*%0A%0AID Reservasi: ${encodeURIComponent(d.reservationId)}%0ANama: ${encodeURIComponent(d.name)}%0ANo WA: ${encodeURIComponent(d.phone)}%0AEmail: ${encodeURIComponent(d.email || '-')}%0A%0ALayanan: ${encodeURIComponent(d.service)}%0ATanggal: ${encodeURIComponent(d.date)}%0AWaktu: ${encodeURIComponent(d.time)}%0ADurasi: ${encodeURIComponent(d.duration)} menit%0ALokasi: ${encodeURIComponent(d.location)}%0AAlamat: ${encodeURIComponent(d.address)}%0A%0APreferensi Terapis: ${encodeURIComponent(d.therapist || 'Tidak ada preferensi')}%0ABiaya Seikhlas: Rp ${encodeURIComponent(formatNumber(d.price))}%0A%0ACatatan: ${encodeURIComponent(d.notes || 'Tidak ada catatan khusus')}`;
         return 'https://wa.me/085640863937?text=' + text;
       }
     })();
